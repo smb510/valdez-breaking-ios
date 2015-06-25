@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C3275C6E1B3BA109007B831E /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3275C6D1B3BA109007B831E /* Story.swift */; };
+		C3275C741B3BA34E007B831E /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3275C731B3BA34E007B831E /* Story.swift */; };
 		C337B3331ADD070000929BB3 /* BreakingNewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C337B3321ADD070000929BB3 /* BreakingNewsTableViewCell.swift */; };
 		C36923371ADCDD620086C4CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36923361ADCDD620086C4CC /* AppDelegate.swift */; };
 		C369233A1ADCDD620086C4CC /* BreakingNewsValdez.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C36923381ADCDD620086C4CC /* BreakingNewsValdez.xcdatamodeld */; };
@@ -31,8 +31,7 @@
 
 /* Begin PBXFileReference section */
 		C3275C681B3B9920007B831E /* BreakingNewsValdez 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BreakingNewsValdez 2.xcdatamodel"; sourceTree = "<group>"; };
-		C3275C6D1B3BA109007B831E /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
-		C3275C6F1B3BA1A5007B831E /* BreakingNewsValdez-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BreakingNewsValdez-Bridging-Header.h"; sourceTree = "<group>"; };
+		C3275C731B3BA34E007B831E /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
 		C337B3321ADD070000929BB3 /* BreakingNewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreakingNewsTableViewCell.swift; sourceTree = "<group>"; };
 		C36923311ADCDD620086C4CC /* BreakingNewsValdez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreakingNewsValdez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C36923351ADCDD620086C4CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -93,11 +92,10 @@
 				C369233D1ADCDD620086C4CC /* Main.storyboard */,
 				C36923401ADCDD620086C4CC /* Images.xcassets */,
 				C36923421ADCDD620086C4CC /* LaunchScreen.xib */,
+				C3275C731B3BA34E007B831E /* Story.swift */,
 				C36923381ADCDD620086C4CC /* BreakingNewsValdez.xcdatamodeld */,
-				C3275C6D1B3BA109007B831E /* Story.swift */,
 				C36923341ADCDD620086C4CC /* Supporting Files */,
 				C337B3321ADD070000929BB3 /* BreakingNewsTableViewCell.swift */,
-				C3275C6F1B3BA1A5007B831E /* BreakingNewsValdez-Bridging-Header.h */,
 			);
 			path = BreakingNewsValdez;
 			sourceTree = "<group>";
@@ -233,7 +231,7 @@
 				C36923371ADCDD620086C4CC /* AppDelegate.swift in Sources */,
 				C369233A1ADCDD620086C4CC /* BreakingNewsValdez.xcdatamodeld in Sources */,
 				C3EE17A51AFB1C76002E3AD2 /* OptionsViewController.swift in Sources */,
-				C3275C6E1B3BA109007B831E /* Story.swift in Sources */,
+				C3275C741B3BA34E007B831E /* Story.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,7 +361,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "BreakingNewsValdez/BreakingNewsValdez-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -380,7 +378,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "BreakingNewsValdez/BreakingNewsValdez-Bridging-Header.h";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

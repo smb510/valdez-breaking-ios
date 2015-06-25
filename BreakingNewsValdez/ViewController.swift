@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Story
 
 class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -46,30 +45,17 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         let incidentBody: String = stories[indexPath.row].eventBody
         let incidentType: String = stories[indexPath.row].eventType
         let incidentDate: NSNumber = stories[indexPath.row].importDate
-        var isFavorite: Bool? = stories[indexPath.row].isFavorite
+        var isFavorite: Bool? = stories[indexPath.row].isFavorite.boolValue
+        cell.story = stories[indexPath.row]
         cell.isFavorite.setOn(isFavorite!, animated: false)
-        cell.isFavorite.addTarget(self, action: "switchChanged:", forControlEvents: UIControlEvents.ValueChanged)
+        cell.isFavorite.addTarget(cell, action: "switchChanged:", forControlEvents: UIControlEvents.ValueChanged)
         cell.incidentType.text = incidentType
         cell.incidentBody.text = incidentBody
         let date : NSDate = NSDate(timeIntervalSince1970: incidentDate.doubleValue / 1000)
         cell.incidentDate.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
         return cell
     }
-    
-    func switchChanged(switchState: UISwitch) {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext!
-        let storyToFavor = NSFetchRequest(entityName: "Story")
-//        storyToFavor.predicate = NSPredicate(format: "id == %i", <#args: CVarArgType#>...)
-        if (switchState.on) {
-            
-        }
-        
-    }
-    
-    
-    
-    
+
     func downloadJson() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
@@ -88,7 +74,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
             }
         }
         let session: NSURLSession = NSURLSession.sharedSession();
-        let url : String = "http://evening-oasis-4196.herokuapp.com/stories?last=" + queryId.stringValue
+        let url : String = "http://datelinevaldez.com/stories?last=" + queryId.stringValue
         var request: NSURLRequest = NSURLRequest(URL: NSURL(string: url)!);
         let task = session.dataTaskWithRequest(request, completionHandler: {(data: NSData!, response: NSURLResponse!, error: NSError!) in
             let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.allZeros,  error: nil) as! NSArray;
@@ -104,7 +90,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
                 let res = managedContext.executeFetchRequest(req, error: err)
                 if (res == nil || res!.count == 0) {
                     count += 1
-                    let story = NSManagedObject(entity: entity!,
+                    let story = Story(entity: entity!,
                         insertIntoManagedObjectContext:managedContext)
                     story.setValuesForKeysWithDictionary(dict as! NSDictionary as [NSObject : AnyObject])
                     var error: NSError?
@@ -137,8 +123,8 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         managedContext.executeFetchRequest(fetchRequest,
             error: &error) as! [Story]?
         
-        if let results = fetchedResults {
-            stories = results
+        if fetchedResults != nil {
+            stories = fetchedResults!
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
