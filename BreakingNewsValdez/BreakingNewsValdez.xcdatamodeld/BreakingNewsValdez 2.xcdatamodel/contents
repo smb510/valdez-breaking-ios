@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14E26a" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Story" syncable="YES">
+    <entity name="Story" representedClassName="Story" syncable="YES">
         <attribute name="eventBody" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="eventType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="importDate" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="isBroadcast" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isFavorite" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Story" positionX="-63" positionY="-18" width="128" height="30"/>
+        <element name="Story" positionX="-63" positionY="-18" width="128" height="133"/>
     </elements>
 </model>
