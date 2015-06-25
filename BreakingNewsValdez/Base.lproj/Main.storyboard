@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="132" id="ilA-Z3-0js" customClass="BreakingNewsTableViewCell" customModule="BreakingNewsValdez" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="132" id="ilA-Z3-0js" userLabel="News Item" customClass="BreakingNewsTableViewCell" customModule="BreakingNewsValdez" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ilA-Z3-0js" id="w7Q-bi-xuo">
@@ -109,6 +109,28 @@
                                     <outlet property="incidentType" destination="80E-SR-8Jc" id="E9V-gh-3c6"/>
                                     <outlet property="isFavorite" destination="y56-GA-A5e" id="n6V-Xt-CXR"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" shouldIndentWhileEditing="NO" reuseIdentifier="Header" rowHeight="44" id="7tX-tx-e43" userLabel="Header">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7tX-tx-e43" id="Xhy-3v-agr">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" tag="445" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="AYs-NZ-o6x">
+                                            <rect key="frame" x="8" y="8" width="584" height="29"/>
+                                            <segments>
+                                                <segment title="All"/>
+                                                <segment title="Favorites"/>
+                                            </segments>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="AYs-NZ-o6x" secondAttribute="bottom" id="0zO-YM-5gd"/>
+                                        <constraint firstItem="AYs-NZ-o6x" firstAttribute="top" secondItem="Xhy-3v-agr" secondAttribute="topMargin" id="GZI-LG-ZEx"/>
+                                        <constraint firstItem="AYs-NZ-o6x" firstAttribute="trailing" secondItem="Xhy-3v-agr" secondAttribute="trailingMargin" id="Xbx-JZ-gkw"/>
+                                        <constraint firstItem="AYs-NZ-o6x" firstAttribute="leading" secondItem="Xhy-3v-agr" secondAttribute="leadingMargin" id="j5y-QD-2Yh"/>
+                                    </constraints>
+                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <connections>

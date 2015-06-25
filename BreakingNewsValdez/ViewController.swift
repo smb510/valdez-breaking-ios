@@ -12,6 +12,7 @@ import CoreData
 class ViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate {
     
     var stories = [Story]()
+    var displayAllStories : Bool = true
     
     @IBOutlet weak var filterButton : UIBarButtonItem?;
 
@@ -25,14 +26,27 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         refreshControl = UIRefreshControl()
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: "downloadJson", forControlEvents: UIControlEvents.ValueChanged)
-        loadStories()
-//        filterButton!.target = self
-//        filterButton!.action = "showOptions"
+        loadStories(displayAllStories)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func switchViewMode(segmentedControl: UISegmentedControl) {
+        if (displayAllStories) {
+            //now show only favorites
+            segmentedControl.selectedSegmentIndex = 1
+        } else {
+            segmentedControl.selectedSegmentIndex = 0
+        }
+        displayAllStories = !displayAllStories
+        loadStories(displayAllStories)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -42,22 +56,34 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return stories.count;
+        if(section == 0) {
+            return 1
+        } else if (section == 1) {
+            return stories.count
+        }
+        return 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: BreakingNewsTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell") as! BreakingNewsTableViewCell
-        let incidentBody: String = stories[indexPath.row].eventBody
-        let incidentType: String = stories[indexPath.row].eventType
-        let incidentDate: NSNumber = stories[indexPath.row].importDate
-        var isFavorite: Bool? = stories[indexPath.row].isFavorite.boolValue
-        cell.story = stories[indexPath.row]
-        cell.isFavorite.hidden = !(isFavorite!)
-        cell.incidentType.text = incidentType
-        cell.incidentBody.text = incidentBody
-        let date : NSDate = NSDate(timeIntervalSince1970: incidentDate.doubleValue / 1000)
-        cell.incidentDate.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
-        return cell
+        if (indexPath.section == 0) {
+            let headerCell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("Header") as! UITableViewCell
+            let switcherView : UISegmentedControl = headerCell.viewWithTag(445) as! UISegmentedControl
+            switcherView.addTarget(self, action: "switchViewMode:", forControlEvents: UIControlEvents.ValueChanged)
+            return headerCell
+        } else {
+            let cell: BreakingNewsTableViewCell = tableView.dequeueReusableCellWithIdentifier("Cell") as! BreakingNewsTableViewCell
+            let incidentBody: String = stories[indexPath.row].eventBody
+            let incidentType: String = stories[indexPath.row].eventType
+            let incidentDate: NSNumber = stories[indexPath.row].importDate
+            var isFavorite: Bool? = stories[indexPath.row].isFavorite.boolValue
+            cell.story = stories[indexPath.row]
+            cell.isFavorite.hidden = !(isFavorite!)
+            cell.incidentType.text = incidentType
+            cell.incidentBody.text = incidentBody
+            let date : NSDate = NSDate(timeIntervalSince1970: incidentDate.doubleValue / 1000)
+            cell.incidentDate.text = NSDateFormatter.localizedStringFromDate(date, dateStyle: NSDateFormatterStyle.ShortStyle, timeStyle: NSDateFormatterStyle.NoStyle)
+            return cell
+        }
     }
 
     func downloadJson() {
@@ -103,13 +129,15 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
                     }
                 }
             }
-            self.loadStories()
-            self.refreshControl?.endRefreshing()
+            dispatch_async(dispatch_get_main_queue(), {
+                self.loadStories(self.displayAllStories)
+                self.refreshControl?.endRefreshing()
+                });
         });
         task.resume()
     }
     
-    func loadStories() {
+    func loadStories(displayAllStories: Bool) {
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
         
@@ -119,6 +147,10 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         
         let sortDescriptor : NSSortDescriptor = NSSortDescriptor(key: "importDate", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if (!displayAllStories) {
+            fetchRequest.predicate = NSPredicate(format: "isFavorite == %i", 1)
+        }
         
         //3
         var error: NSError?
