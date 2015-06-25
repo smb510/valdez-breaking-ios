@@ -35,6 +35,11 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         // Dispose of any resources that can be recreated.
     }
     
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell: BreakingNewsTableViewCell = tableView.cellForRowAtIndexPath(indexPath) as! BreakingNewsTableViewCell
+        cell.switchChanged()
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stories.count;
@@ -47,8 +52,7 @@ class ViewController: UITableViewController, UITableViewDataSource, UITableViewD
         let incidentDate: NSNumber = stories[indexPath.row].importDate
         var isFavorite: Bool? = stories[indexPath.row].isFavorite.boolValue
         cell.story = stories[indexPath.row]
-        cell.isFavorite.setOn(isFavorite!, animated: false)
-        cell.isFavorite.addTarget(cell, action: "switchChanged:", forControlEvents: UIControlEvents.ValueChanged)
+        cell.isFavorite.hidden = !(isFavorite!)
         cell.incidentType.text = incidentType
         cell.incidentBody.text = incidentBody
         let date : NSDate = NSDate(timeIntervalSince1970: incidentDate.doubleValue / 1000)

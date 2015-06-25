@@ -18,19 +18,20 @@ class BreakingNewsTableViewCell: UITableViewCell {
     @IBOutlet weak var incidentType: UILabel!;
     @IBOutlet weak var incidentBody: UILabel!;
     @IBOutlet weak var incidentDate: UILabel!;
-    @IBOutlet weak var isFavorite: UISwitch!;
+    @IBOutlet weak var isFavorite: UIImageView!;
     
 
     weak var story: Story?;
     
-    func switchChanged(switchState: UISwitch) {
+    func switchChanged() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
-        if (switchState.on) {
-            story!.isFavorite = true
+        if (story!.isFavorite.boolValue) {
+            isFavorite.hidden = true;
         } else {
-            story!.isFavorite = false
+            isFavorite.hidden = false;
         }
+        story!.isFavorite = !(story!.isFavorite.boolValue)
         let err : NSErrorPointer = NSErrorPointer()
         managedContext.save(err);
     }
